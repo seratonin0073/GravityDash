@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 08252a4dba87f9b4d9d01de0048b8c80
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - EatFX: {fileID: 5168643921180915846, guid: 590f85449d07cc7449cdf12146c1a028, type: 3}
+  - BoomFX: {fileID: 8948744524416464906, guid: 1579e8019536c654f943a4d716e1a52f, type: 3}
+  - HitFX: {fileID: 5826047789394942445, guid: ca725610bedeaca47b428f13f6d8bc6f, type: 3}
+  executionOrder: 0
+  icon: {fileID: 2800000, guid: 64be9fe1fb4415342a0fcd075ad1f921, type: 3}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
