@@ -668,7 +668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpawnTime: 0.5
   FoodChance: 45
-  FoodColor: {r: 0.71133995, g: 0, b: 1, a: 0}
+  FoodColor: {r: 0.93882513, g: 0, b: 1, a: 0}
   Enemy: {fileID: 4362917014277651041, guid: 343b3051cc24e0f4981007658c150e13, type: 3}
 --- !u!4 &820319708
 Transform:
