@@ -11,6 +11,8 @@ public class ScoreScript : MonoBehaviour
     private void Start()
     {
         BestScore = PlayerPrefs.GetInt("Best");
+        Score = SaveVar.score;
+        ScoreText.text = $"{Score}";
     }
 
     public void UpdateScore(int value)

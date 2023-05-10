@@ -14,6 +14,23 @@ public class UIScript : MonoBehaviour
 
     private GameObject pausaObj;
 
+    private void Awake()
+    {
+        GameObject[] SpawnPoints = GameObject.FindGameObjectsWithTag("SpawnPosition");
+        if(SaveVar.level == Level.Easy)
+        {
+            for (int i = 0; i < SpawnPoints.Length; i++)
+            {
+                if ((i + 1) % 2 == 0)
+                    SpawnPoints[i].SetActive(false);
+            }
+        }
+        else if (SaveVar.level == Level.Hard)
+        {
+            GameObject.FindObjectOfType<SpawnScript>().SpawnTime = 0.4f;
+            GameObject.FindObjectOfType<SpawnScript>().FoodChance = 40;
+        }
+    }
     void Start()
     {
         scoreScript = GameObject.Find("UIManager").GetComponent<ScoreScript>();
@@ -31,12 +48,14 @@ public class UIScript : MonoBehaviour
     }
     public void StartGame()
     {
+        scoreScript.UpdateScore(scoreScript.Score * -1);
         pausaObj.SetActive(false);
         Time.timeScale = 1;
     }
     public void Dead()
     {
-        scoreScript.UpdateScore(scoreScript.Score *-1);
+        SaveVar.score = scoreScript.Score;
+        scoreScript.UpdateScore(0);
         bestScoreText.text = $"{PlayerPrefs.GetInt("Best")}";
         StartCoroutine(LoadLevel());
         
@@ -44,6 +63,19 @@ public class UIScript : MonoBehaviour
     IEnumerator LoadLevel()
     {
         yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
+}
+
+struct SaveVar
+{
+   public static int score = 0;
+    public static Level level = Level.Easy;
+}
+
+enum Level
+{
+    Easy,
+    Medium,
+    Hard
 }

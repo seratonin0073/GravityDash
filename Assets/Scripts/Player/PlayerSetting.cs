@@ -29,7 +29,7 @@ public class PlayerSetting : MonoBehaviour
 
     void Update()
     {
-     if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0))
         {
             if (soundManager != null) soundManager.PlaySound("Hit");
             //rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * -1);
@@ -64,6 +64,7 @@ public class PlayerSetting : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Collision!!!");
         if (soundManager != null) soundManager.PlaySound("Hit");
         Instantiate(HitFX, transform.position, Quaternion.identity);
     }
