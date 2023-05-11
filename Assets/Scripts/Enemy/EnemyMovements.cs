@@ -10,6 +10,9 @@ public class EnemyMovements : MonoBehaviour
     private float minAngular = 35, maxAngular = 80;
     void Start()
     {
+        UIScript.OnPause.AddListener(Pause);
+        UIScript.OnResume.AddListener(Resume);
+
         rb2d = GetComponent<Rigidbody2D>();
 
         if (speed > 0) speed *= -1;            
@@ -20,6 +23,23 @@ public class EnemyMovements : MonoBehaviour
         else
             rb2d.angularVelocity = Random.Range(-minAngular, -maxAngular);
 
-        Destroy(gameObject, 3f);
+    }
+
+    private void OnBecameInvisible()
+    {
+        Destroy(gameObject);
+    }
+
+
+    Vector2 velocity;
+    private void Pause()
+    {
+        velocity = GetComponent<Rigidbody2D>().velocity;
+        GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+    }
+
+    private void Resume()
+    {
+        GetComponent<Rigidbody2D>().velocity = velocity;
     }
 }

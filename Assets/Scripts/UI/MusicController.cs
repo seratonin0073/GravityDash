@@ -1,15 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class MusicController : MonoBehaviour
 {
+    [SerializeField] private Slider Volume;
+    [SerializeField] private AudioMixer AudioMixer;
     [SerializeField] private AudioClip[] Audio;
     private AudioSource Source;
     private int audioNumber;
     // Start is called before the first frame update
     void Start()
     {
+        Volume.value = PlayerPrefs.GetFloat("Volume");
         Source = GetComponent<AudioSource>();
         if(Audio != null)
         {
@@ -33,5 +36,11 @@ public class MusicController : MonoBehaviour
             Source.clip = Audio[audioNumber];
             Source.Play();
         }
+    }
+
+    public void VolumeChanger()
+    {
+        AudioMixer.SetFloat("Volume", Volume.value);
+        PlayerPrefs.SetFloat("Volume", Volume.value);
     }
 }

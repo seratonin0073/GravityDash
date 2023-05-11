@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class PlayerSoundManager : MonoBehaviour
 {
     public AudioClip Hit;
     public AudioClip Food;
     public AudioClip Dead;
+    public AudioMixerGroup Mixer;
 
     private AudioSource source;
     private AudioSource hitSourse;
@@ -16,6 +18,10 @@ public class PlayerSoundManager : MonoBehaviour
     {
         source = gameObject.AddComponent<AudioSource>();
         hitSourse = gameObject.AddComponent<AudioSource>();
+        source.outputAudioMixerGroup = Mixer;
+        hitSourse.outputAudioMixerGroup = Mixer;
+        
+
         source.volume = soundVolume;
         hitSourse.volume = soundVolume;
     }

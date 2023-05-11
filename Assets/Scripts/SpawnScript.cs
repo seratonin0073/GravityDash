@@ -19,6 +19,8 @@ public class SpawnScript : MonoBehaviour
         SpawnPosition = GameObject.FindGameObjectsWithTag("SpawnPosition");
         if (FoodColor.a < 0.5f) FoodColor.a = 1;
         if (FoodChance == 0) FoodChance = 10;
+        UIScript.OnPause.AddListener(Pause);
+        UIScript.OnResume.AddListener(Resume);
         StartCoroutine(Spawn());
     }
     IEnumerator Spawn()
@@ -36,5 +38,15 @@ public class SpawnScript : MonoBehaviour
         }
         yield return new WaitForSeconds(SpawnTime);
         StartCoroutine(Spawn());
-  }
+    }
+
+    private void Pause()
+    {
+        StopAllCoroutines();
+    }
+
+    private void Resume()
+    {
+        StartCoroutine(Spawn());
+    }
 }

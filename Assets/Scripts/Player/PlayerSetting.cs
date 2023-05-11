@@ -14,9 +14,12 @@ public class PlayerSetting : MonoBehaviour
     private Rigidbody2D rb2d;
     private ScoreScript scoreScript;
     private PlayerSoundManager soundManager;
+    private bool isPause = false;
+
     void Start()
     {
-
+        UIScript.OnPause.AddListener(Pause);
+        UIScript.OnResume.AddListener(Resume);
         scoreScript = GameObject.Find("UIManager").GetComponent<ScoreScript>();
         rb2d = GetComponent<Rigidbody2D>();
         soundManager = GetComponent<PlayerSoundManager>();
@@ -29,10 +32,9 @@ public class PlayerSetting : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && !isPause)
         {
             if (soundManager != null) soundManager.PlaySound("Hit");
-            //rb2d.velocity = new Vector2(rb2d.velocity.x, rb2d.velocity.y * -1);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -64,8 +66,18 @@ public class PlayerSetting : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Collision!!!");
         if (soundManager != null) soundManager.PlaySound("Hit");
         Instantiate(HitFX, transform.position, Quaternion.identity);
     }
+
+    private void Pause()
+    {
+        isPause = true;
+    }
+
+    private void Resume()
+    {
+        isPause = false;
+    }
+
 }

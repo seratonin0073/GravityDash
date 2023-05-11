@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Events;
 public class UIScript : MonoBehaviour
 {
-    public string GameName;
 
-    private Text gameNameText;
     private Text bestScoreText;
     private ScoreScript scoreScript;
 
     private GameObject pausaObj;
+
+    public static UnityEvent OnPause = new UnityEvent();
+    public static UnityEvent OnResume = new UnityEvent();
 
     private void Awake()
     {
@@ -34,14 +35,9 @@ public class UIScript : MonoBehaviour
     void Start()
     {
         scoreScript = GameObject.Find("UIManager").GetComponent<ScoreScript>();
-        gameNameText = GameObject.Find("GameName").GetComponent<Text>();
         bestScoreText = GameObject.Find("BSValue").GetComponent<Text>();
         pausaObj = GameObject.Find("StartPanel");
 
-        if(GameName != null)
-        {
-            gameNameText.text = GameName;
-        }
         bestScoreText.text = $"{PlayerPrefs.GetInt("Best")}";
         Time.timeScale = 0;
 
@@ -62,15 +58,17 @@ public class UIScript : MonoBehaviour
     }
     IEnumerator LoadLevel()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene(1);
     }
 
     public void Pause()
     {
-        if (Time.timeScale == 0)
-            Time.timeScale = 1;
-        else Time.timeScale = 0;
+        OnPause.Invoke();
+    }
+    public void Resume()
+    {
+        OnResume.Invoke();
     }
     public void MainMenu()
     {
@@ -80,8 +78,9 @@ public class UIScript : MonoBehaviour
 
 struct SaveVar
 {
-   public static int score = 0;
+    public static int score = 0;
     public static Level level = Level.Easy;
+    public static int volume = 0;
 }
 
 enum Level
