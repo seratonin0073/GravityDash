@@ -9,6 +9,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        int rnd = Random.Range(0, 2);
+        if(rnd == 0)
+        {
+            transform.position = new Vector2(transform.position.x * -1, transform.position.y);
+        }
     }
 
     // Update is called once per frame

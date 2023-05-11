@@ -65,6 +65,17 @@ public class UIScript : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(1);
     }
+
+    public void Pause()
+    {
+        if (Time.timeScale == 0)
+            Time.timeScale = 1;
+        else Time.timeScale = 0;
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
 }
 
 struct SaveVar
